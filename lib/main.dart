@@ -44,10 +44,28 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Center(child: Text("This is the beginning of the plugin")),
+
     );
   }
 }
+
+class Login extends StatefulWidget {
+
+  static const String id = "login";
+
+  const Login({Key? key}) : super(key: key);
+
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+
 
 
 // class MyHomePage extends StatefulWidget {
