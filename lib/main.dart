@@ -1,4 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:universal_html/html.dart' as html;
+
 
 void main() {
   runApp(const MyApp());
@@ -12,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'sochealth',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -33,7 +36,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
 
       ),
-      home: const Home(),
+      home: CookieAnalyzer()
     );
   }
 }
@@ -49,20 +52,89 @@ class Home extends StatelessWidget {
   }
 }
 
-class Login extends StatefulWidget {
+// class Login extends StatefulWidget {
+//
+//   static const String id = "login";
+//
+//   const Login({Key? key}) : super(key: key);
+//
+//   @override
+//   State<Login> createState() => _LoginState();
+// }
+//
+// class _LoginState extends State<Login> {
+//
+//
+//   Future <Map<String, String>> getCookiesAsMap() async{
+//     final cookieString = document.cookie!;
+//     if (cookieString.isNotEmpty) {
+//       final cookiesList = cookieString.split('; ');
+//       final cookiesMap = {
+//         for (var cookie in cookiesList)
+//           cookie.split('=')[0]: cookie.split('=')[1]
+//       };
+//       return cookiesMap;
+//     }
+//     return {};
+//   }
+//
+//
+//
+//   @override
+//   void initState() {
+//     // TODO: implement initState
+//     getCookiesAsMap();
+//     super.initState();
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//
+//     return FutureBuilder(future: getCookiesAsMap(), builder: (context, snapshot){
+//       if(snapshot.hasData){
+//         return Text(snapshot.data.toString());
+//       }else{
+//         return Text("No Cookie Data");
+//       }
+//     });
+//   }
+// }
 
-  static const String id = "login";
-
-  const Login({Key? key}) : super(key: key);
-
+class CookieAnalyzer extends StatefulWidget {
   @override
-  State<Login> createState() => _LoginState();
+  _CookieAnalyzerState createState() => _CookieAnalyzerState();
 }
 
-class _LoginState extends State<Login> {
+class _CookieAnalyzerState extends State<CookieAnalyzer> {
+  String cookieData = '';
+
+  @override
+  void initState() {
+    super.initState();
+    // Retrieve and analyze cookies when the widget initializes
+    retrieveAndAnalyzeCookies();
+  }
+
+  void retrieveAndAnalyzeCookies() {
+    // Accessing browser cookies
+    final cookies = html.window.document.cookie;
+    setState(() {
+      cookieData = cookies!;
+      // Perform analysis on the cookie data here
+    });
+    print(cookieData);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Cookie Analyzer'),
+      ),
+      body: Center(
+        child: Text(cookieData),
+      ),
+    );
   }
 }
 
